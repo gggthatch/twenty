@@ -11,15 +11,24 @@ import { ObjectMetadataService } from 'src/engine/metadata-modules/object-metada
 import {
   SEED_APPLE_WORKSPACE_ID,
   SEED_YCOMBINATOR_WORKSPACE_ID,
+  SEED_EZYSHIELD_WORKSPACE_ID,
 } from 'src/engine/workspace-manager/dev-seeder/core/constants/seeder-workspaces.constant';
 import { COMPANY_CUSTOM_FIELD_SEEDS } from 'src/engine/workspace-manager/dev-seeder/metadata/custom-fields/constants/company-custom-field-seeds.constant';
 import { PERSON_CUSTOM_FIELD_SEEDS } from 'src/engine/workspace-manager/dev-seeder/metadata/custom-fields/constants/person-custom-field-seeds.constant';
 import { PET_CUSTOM_FIELD_SEEDS } from 'src/engine/workspace-manager/dev-seeder/metadata/custom-fields/constants/pet-custom-field-seeds.constant';
 import { PET_CUSTOM_RELATION_FIELD_SEEDS } from 'src/engine/workspace-manager/dev-seeder/metadata/custom-fields/constants/pet-custom-relation-field-seeds.constant';
 import { SURVEY_RESULT_CUSTOM_FIELD_SEEDS } from 'src/engine/workspace-manager/dev-seeder/metadata/custom-fields/constants/survey-results-field-seeds.constant';
+import { EZYSHIELD_COMPANY_CUSTOM_FIELD_SEEDS } from 'src/engine/workspace-manager/dev-seeder/metadata/custom-fields/constants/ezyshield-company-custom-field-seeds.constant';
+import { EZYSHIELD_OPPORTUNITY_CUSTOM_FIELD_SEEDS } from 'src/engine/workspace-manager/dev-seeder/metadata/custom-fields/constants/ezyshield-opportunity-custom-field-seeds.constant';
+import { RESEARCH_NOTE_CUSTOM_FIELD_SEEDS } from 'src/engine/workspace-manager/dev-seeder/metadata/custom-fields/constants/research-note-custom-field-seeds.constant';
+import { RESEARCH_NOTE_CUSTOM_RELATION_FIELD_SEEDS } from 'src/engine/workspace-manager/dev-seeder/metadata/custom-fields/constants/research-note-custom-relation-field-seeds.constant';
+import { OUTREACH_SEQUENCE_CUSTOM_FIELD_SEEDS } from 'src/engine/workspace-manager/dev-seeder/metadata/custom-fields/constants/outreach-sequence-custom-field-seeds.constant';
+import { OUTREACH_SEQUENCE_CUSTOM_RELATION_FIELD_SEEDS } from 'src/engine/workspace-manager/dev-seeder/metadata/custom-fields/constants/outreach-sequence-custom-relation-field-seeds.constant';
 import { PET_CUSTOM_OBJECT_SEED } from 'src/engine/workspace-manager/dev-seeder/metadata/custom-objects/constants/pet-custom-object-seed.constant';
 import { ROCKET_CUSTOM_OBJECT_SEED } from 'src/engine/workspace-manager/dev-seeder/metadata/custom-objects/constants/rocket-custom-object-seed.constant';
 import { SURVEY_RESULT_CUSTOM_OBJECT_SEED } from 'src/engine/workspace-manager/dev-seeder/metadata/custom-objects/constants/survey-results-object-seed.constant';
+import { RESEARCH_NOTE_CUSTOM_OBJECT_SEED } from 'src/engine/workspace-manager/dev-seeder/metadata/custom-objects/constants/research-note-custom-object-seed.constant';
+import { OUTREACH_SEQUENCE_CUSTOM_OBJECT_SEED } from 'src/engine/workspace-manager/dev-seeder/metadata/custom-objects/constants/outreach-sequence-custom-object-seed.constant';
 import { type FieldMetadataSeed } from 'src/engine/workspace-manager/dev-seeder/metadata/types/field-metadata-seed.type';
 import { type ObjectMetadataSeed } from 'src/engine/workspace-manager/dev-seeder/metadata/types/object-metadata-seed.type';
 
@@ -72,6 +81,35 @@ export class DevSeederMetadataService {
       fields: [
         { objectName: 'company', seeds: COMPANY_CUSTOM_FIELD_SEEDS },
         { objectName: 'person', seeds: PERSON_CUSTOM_FIELD_SEEDS },
+      ],
+    },
+    [SEED_EZYSHIELD_WORKSPACE_ID]: {
+      objects: [
+        {
+          seed: RESEARCH_NOTE_CUSTOM_OBJECT_SEED,
+          fields: RESEARCH_NOTE_CUSTOM_FIELD_SEEDS,
+        },
+        {
+          seed: OUTREACH_SEQUENCE_CUSTOM_OBJECT_SEED,
+          fields: OUTREACH_SEQUENCE_CUSTOM_FIELD_SEEDS,
+        },
+      ],
+      fields: [
+        { objectName: 'company', seeds: EZYSHIELD_COMPANY_CUSTOM_FIELD_SEEDS },
+        {
+          objectName: 'opportunity',
+          seeds: EZYSHIELD_OPPORTUNITY_CUSTOM_FIELD_SEEDS,
+        },
+      ],
+      relations: [
+        {
+          objectName: RESEARCH_NOTE_CUSTOM_OBJECT_SEED.nameSingular,
+          seeds: RESEARCH_NOTE_CUSTOM_RELATION_FIELD_SEEDS,
+        },
+        {
+          objectName: OUTREACH_SEQUENCE_CUSTOM_OBJECT_SEED.nameSingular,
+          seeds: OUTREACH_SEQUENCE_CUSTOM_RELATION_FIELD_SEEDS,
+        },
       ],
     },
   };

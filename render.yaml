@@ -1,83 +1,115 @@
 services:
-- type: web
-  name: server
-  runtime: image
-  image:
-    url: twentycrm/twenty:latest
-  dockerCommand: "sh -c ./scripts/render-run.sh"
-  autoDeploy: false
-  plan: standard
-  envVars:
-    - key: FRONT_BASE_URL
-      fromService:
-        name: server
-        type: web
-        envVarKey: RENDER_EXTERNAL_URL
-    - key: SERVER_URL
-      fromService:
-        name: server
-        type: web
-        envVarKey: RENDER_EXTERNAL_URL
-    - key: APP_SECRET
-      generateValue: true
-    - key: PG_DATABASE_HOST
-      fromService:
-        name: twenty_postgres
-        type: pserv
-        property: host
-    - key: PG_DATABASE_PORT
-      fromService:
-        name: twenty_postgres
-        type: pserv
-        property: port
-- type: worker
-  name: worker
-  runtime: image
-  image:
-    url: twentycrm/twenty:latest
-  dockerCommand: "sh -c ./scripts/render-worker.sh"
-  autoDeploy: false
-  plan: standard
-  envVars:
-    - key: FRONT_BASE_URL
-      fromService:
-        name: server
-        type: web
-        envVarKey: RENDER_EXTERNAL_URL
-    - key: SERVER_URL
-      fromService:
-        name: server
-        type: web
-        envVarKey: RENDER_EXTERNAL_URL
-    - key: APP_SECRET
-      generateValue: true
-    - key: PG_DATABASE_HOST
-      fromService:
-        name: twenty_postgres
-        type: pserv
-        property: host
-    - key: PG_DATABASE_PORT
-      fromService:
-        name: twenty_postgres
-        type: pserv
-        property: port
-  disk:
-    name: twenty-disk
-    mountPath: /.local-storage
-    sizeGB: 5
-- type: pserv
-  name: twenty_postgres
-  plan: starter
-  runtime: image
-  image:
-    url: twentycrm/twenty-postgres:latest
-  autoDeploy: false
-  disk:
-    name: data
-    mountPath: /var/lib/postgresql/data
-    sizeGB: 10
-  envVars:
-  - key: POSTGRES_USER
-    value: postgres
-  - key: POSTGRES_PASSWORD
-    value: postgres
+  - type: web
+    name: server
+    runtime: image
+    image:
+      url: twentycrm/twenty:latest
+    dockerCommand: 'sh -c ./scripts/render-run.sh'
+    autoDeploy: false
+    plan: standard
+    envVars:
+      - key: FRONT_BASE_URL
+        fromService:
+          name: server
+          type: web
+          envVarKey: RENDER_EXTERNAL_URL
+      - key: SERVER_URL
+        fromService:
+          name: server
+          type: web
+          envVarKey: RENDER_EXTERNAL_URL
+      - key: APP_SECRET
+        generateValue: true
+      - key: PG_DATABASE_HOST
+        fromService:
+          name: twenty_postgres
+          type: pserv
+          property: host
+      - key: PG_DATABASE_PORT
+        fromService:
+          name: twenty_postgres
+          type: pserv
+          property: port
+      - key: REDIS_HOST
+        fromService:
+          name: twenty_redis
+          type: pserv
+          property: host
+      - key: REDIS_PORT
+        fromService:
+          name: twenty_redis
+          type: pserv
+          property: port
+      - key: REDIS_URL
+        value: redis://$REDIS_HOST:$REDIS_PORT
+  - type: worker
+    name: worker
+    runtime: image
+    image:
+      url: twentycrm/twenty:latest
+    dockerCommand: 'sh -c ./scripts/render-worker.sh'
+    autoDeploy: false
+    plan: standard
+    envVars:
+      - key: FRONT_BASE_URL
+        fromService:
+          name: server
+          type: web
+          envVarKey: RENDER_EXTERNAL_URL
+      - key: SERVER_URL
+        fromService:
+          name: server
+          type: web
+          envVarKey: RENDER_EXTERNAL_URL
+      - key: APP_SECRET
+        generateValue: true
+      - key: PG_DATABASE_HOST
+        fromService:
+          name: twenty_postgres
+          type: pserv
+          property: host
+      - key: PG_DATABASE_PORT
+        fromService:
+          name: twenty_postgres
+          type: pserv
+          property: port
+      - key: REDIS_HOST
+        fromService:
+          name: twenty_redis
+          type: pserv
+          property: host
+      - key: REDIS_PORT
+        fromService:
+          name: twenty_redis
+          type: pserv
+          property: port
+      - key: REDIS_URL
+        value: redis://$REDIS_HOST:$REDIS_PORT
+    disk:
+      name: twenty-disk
+      mountPath: /.local-storage
+      sizeGB: 5
+  - type: pserv
+    name: twenty_postgres
+    plan: starter
+    runtime: image
+    image:
+      url: twentycrm/twenty-postgres:latest
+    autoDeploy: false
+    disk:
+      name: data
+      mountPath: /var/lib/postgresql/data
+      sizeGB: 10
+    envVars:
+      - key: POSTGRES_USER
+        value: postgres
+      - key: POSTGRES_PASSWORD
+        value: postgres
+  - type: pserv
+    name: twenty_redis
+    plan: starter
+    runtime: image
+    image:
+      url: redis:7
+    autoDeploy: false
+    envVars: []

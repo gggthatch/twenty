@@ -22,10 +22,12 @@ export type CreateWorkspaceInput = Pick<
 export const SEED_APPLE_WORKSPACE_ID = '20202020-1c25-4d02-bf25-6aeccf7ea419';
 export const SEED_YCOMBINATOR_WORKSPACE_ID =
   '3b8e6458-5fc1-4e63-8563-008ccddaa6db';
+export const SEED_EZYSHIELD_WORKSPACE_ID = 'ezyshield-crm-dev-workspace-001';
 
 export type SeededWorkspacesIds =
   | typeof SEED_APPLE_WORKSPACE_ID
-  | typeof SEED_YCOMBINATOR_WORKSPACE_ID;
+  | typeof SEED_YCOMBINATOR_WORKSPACE_ID
+  | typeof SEED_EZYSHIELD_WORKSPACE_ID;
 
 export const SEEDER_CREATE_WORKSPACE_INPUT = {
   [SEED_APPLE_WORKSPACE_ID]: {
@@ -43,6 +45,15 @@ export const SEEDER_CREATE_WORKSPACE_INPUT = {
     subdomain: 'yc',
     inviteHash: 'yc.dev-invite-hash',
     logo: 'https://twentyhq.github.io/placeholder-images/workspaces/ycombinator-logo.png',
+    activationStatus: WorkspaceActivationStatus.PENDING_CREATION, // will be set to active after default role creation
+    isTwoFactorAuthenticationEnforced: false,
+  },
+  [SEED_EZYSHIELD_WORKSPACE_ID]: {
+    id: SEED_EZYSHIELD_WORKSPACE_ID,
+    displayName: 'EzyShield',
+    subdomain: 'ezyshield',
+    inviteHash: 'ezyshield.dev-invite-hash',
+    logo: 'https://cdn.prod.website-files.com/68abb1bb31e48d94e2e2ea89/68abb1bd31e48d94e2e2ec6e_15dd1e54f321bf475bfce97cf4df2614_New%20Logo%20Black.svg',
     activationStatus: WorkspaceActivationStatus.PENDING_CREATION, // will be set to active after default role creation
     isTwoFactorAuthenticationEnforced: false,
   },
