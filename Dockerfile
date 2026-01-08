@@ -1,7 +1,7 @@
 FROM twentycrm/twenty:latest
 
-# Install postgresql client for migrations
-RUN apk add --no-cache postgresql-client
+# Switch to root to install packages and copy files
+USER root
 
 # Copy Render startup scripts
 COPY scripts/render-run.sh /app/render-run.sh
@@ -9,6 +9,9 @@ COPY scripts/render-worker.sh /app/render-worker.sh
 
 # Make scripts executable
 RUN chmod +x /app/render-run.sh /app/render-worker.sh
+
+# Switch back to non-root user
+USER 1000
 
 # Ensure working directory is correct
 WORKDIR /app/packages/twenty-server
