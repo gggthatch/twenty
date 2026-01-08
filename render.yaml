@@ -20,6 +20,8 @@ services:
           envVarKey: RENDER_EXTERNAL_URL
       - key: APP_SECRET
         generateValue: true
+      - key: POSTGRES_PASSWORD
+        value: postgres
       - key: PG_DATABASE_HOST
         fromService:
           name: twenty_postgres
@@ -30,6 +32,8 @@ services:
           name: twenty_postgres
           type: pserv
           property: port
+      - key: PG_DATABASE_URL
+        value: postgres://postgres:$POSTGRES_PASSWORD@$PG_DATABASE_HOST:$PG_DATABASE_PORT/default
       - key: REDIS_HOST
         fromService:
           name: twenty_redis
@@ -42,6 +46,10 @@ services:
           property: port
       - key: REDIS_URL
         value: redis://$REDIS_HOST:$REDIS_PORT
+      - key: DISABLE_DB_MIGRATIONS
+        value: 'false'
+      - key: DISABLE_CRON_JOBS_REGISTRATION
+        value: 'false'
   - type: worker
     name: worker
     runtime: image
@@ -63,6 +71,8 @@ services:
           envVarKey: RENDER_EXTERNAL_URL
       - key: APP_SECRET
         generateValue: true
+      - key: POSTGRES_PASSWORD
+        value: postgres
       - key: PG_DATABASE_HOST
         fromService:
           name: twenty_postgres
@@ -73,6 +83,8 @@ services:
           name: twenty_postgres
           type: pserv
           property: port
+      - key: PG_DATABASE_URL
+        value: postgres://postgres:$POSTGRES_PASSWORD@$PG_DATABASE_HOST:$PG_DATABASE_PORT/default
       - key: REDIS_HOST
         fromService:
           name: twenty_redis
@@ -85,6 +97,10 @@ services:
           property: port
       - key: REDIS_URL
         value: redis://$REDIS_HOST:$REDIS_PORT
+      - key: DISABLE_DB_MIGRATIONS
+        value: 'true'
+      - key: DISABLE_CRON_JOBS_REGISTRATION
+        value: 'true'
     disk:
       name: twenty-disk
       mountPath: /.local-storage
