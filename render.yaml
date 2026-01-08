@@ -4,7 +4,7 @@ services:
     runtime: image
     image:
       url: twentycrm/twenty:latest
-    dockerCommand: 'sh -c ./scripts/render-run.sh'
+    dockerEntrypoint: 'sh -c ./scripts/render-run.sh'
     autoDeploy: false
     plan: standard
     envVars:
@@ -46,16 +46,12 @@ services:
           property: port
       - key: REDIS_URL
         value: redis://$REDIS_HOST:$REDIS_PORT
-      - key: DISABLE_DB_MIGRATIONS
-        value: 'true'
-      - key: DISABLE_CRON_JOBS_REGISTRATION
-        value: 'true'
   - type: worker
     name: worker
     runtime: image
     image:
       url: twentycrm/twenty:latest
-    dockerCommand: 'sh -c ./scripts/render-worker.sh'
+    dockerEntrypoint: 'sh -c ./scripts/render-worker.sh'
     autoDeploy: false
     plan: standard
     envVars:
@@ -97,10 +93,6 @@ services:
           property: port
       - key: REDIS_URL
         value: redis://$REDIS_HOST:$REDIS_PORT
-      - key: DISABLE_DB_MIGRATIONS
-        value: 'true'
-      - key: DISABLE_CRON_JOBS_REGISTRATION
-        value: 'true'
     disk:
       name: twenty-disk
       mountPath: /.local-storage
