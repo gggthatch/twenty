@@ -47,9 +47,9 @@ services:
       - key: REDIS_URL
         value: redis://$REDIS_HOST:$REDIS_PORT
       - key: DISABLE_DB_MIGRATIONS
-        value: 'false'
+        value: 'true'
       - key: DISABLE_CRON_JOBS_REGISTRATION
-        value: 'false'
+        value: 'true'
   - type: worker
     name: worker
     runtime: image
