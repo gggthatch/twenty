@@ -2,9 +2,7 @@ services:
   - type: web
     name: server
     runtime: image
-    image:
-      url: twentycrm/twenty:latest
-    dockerEntrypoint: '/app/render-run.sh'
+    env: docker
     autoDeploy: false
     plan: standard
     envVars:
@@ -49,9 +47,7 @@ services:
   - type: worker
     name: worker
     runtime: image
-    image:
-      url: twentycrm/twenty:latest
-    dockerEntrypoint: '/app/render-worker.sh'
+    env: docker
     autoDeploy: false
     plan: standard
     envVars:

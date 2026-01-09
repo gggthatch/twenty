@@ -23,5 +23,6 @@ EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
   CMD curl -f http://localhost:3000/healthz || exit 1
 
-# Default command will be overridden by dockerCommand in render.yaml
-CMD ["node", "dist/main"]
+# Set custom entrypoint that can run either server or worker based on environment
+ENTRYPOINT ["/bin/sh", "-c"]
+CMD ["/app/render-run.sh"]
