@@ -10,4 +10,4 @@ export PG_DATABASE_URL="postgres://postgres:${POSTGRES_PASSWORD}@${PG_DATABASE_H
 echo "Skipping migrations (handled by server)..."
 
 # Start the worker
-node dist/queue-worker/queue-worker
+yarn worker:prod
