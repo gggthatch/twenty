@@ -1,8 +1,7 @@
 services:
   - type: web
     name: server
-    runtime: image
-    env: docker
+    runtime: docker
     autoDeploy: false
     plan: standard
     envVars:
@@ -42,8 +41,7 @@ services:
           property: port
   - type: worker
     name: worker
-    runtime: image
-    env: docker
+    runtime: docker
     autoDeploy: false
     plan: standard
     envVars:
