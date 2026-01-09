@@ -30,8 +30,6 @@ services:
           name: twenty_postgres
           type: pserv
           property: port
-      - key: PG_DATABASE_URL
-        value: postgres://postgres:$POSTGRES_PASSWORD@$PG_DATABASE_HOST:$PG_DATABASE_PORT/default
       - key: REDIS_HOST
         fromService:
           name: twenty_redis
@@ -42,8 +40,6 @@ services:
           name: twenty_redis
           type: pserv
           property: port
-      - key: REDIS_URL
-        value: redis://$REDIS_HOST:$REDIS_PORT
   - type: worker
     name: worker
     runtime: image
@@ -75,8 +71,6 @@ services:
           name: twenty_postgres
           type: pserv
           property: port
-      - key: PG_DATABASE_URL
-        value: postgres://postgres:$POSTGRES_PASSWORD@$PG_DATABASE_HOST:$PG_DATABASE_PORT/default
       - key: REDIS_HOST
         fromService:
           name: twenty_redis
@@ -87,8 +81,6 @@ services:
           name: twenty_redis
           type: pserv
           property: port
-      - key: REDIS_URL
-        value: redis://$REDIS_HOST:$REDIS_PORT
     disk:
       name: twenty-disk
       mountPath: /.local-storage

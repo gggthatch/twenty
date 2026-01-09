@@ -6,6 +6,9 @@ echo "Starting Twenty Worker..."
 # Set up database URL from individual variables
 export PG_DATABASE_URL="postgres://postgres:${POSTGRES_PASSWORD}@${PG_DATABASE_HOST}:${PG_DATABASE_PORT}/default"
 
+# Set up Redis URL
+export REDIS_URL="redis://${REDIS_HOST}:${REDIS_PORT}"
+
 # Worker does not run migrations (server handles them)
 echo "Skipping migrations (handled by server)..."
 

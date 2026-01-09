@@ -6,6 +6,9 @@ echo "Starting Twenty Server..."
 # Set up database URL from individual variables
 export PG_DATABASE_URL="postgres://postgres:${POSTGRES_PASSWORD}@${PG_DATABASE_HOST}:${PG_DATABASE_PORT}/default"
 
+# Set up Redis URL
+export REDIS_URL="redis://${REDIS_HOST}:${REDIS_PORT}"
+
 # Run database migrations
 echo "Running database migrations..."
 NODE_OPTIONS="--max-old-space-size=1500" yarn database:migrate:prod
